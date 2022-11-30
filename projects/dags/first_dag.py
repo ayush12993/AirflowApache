@@ -38,5 +38,10 @@ with DAG(
            task_id="first_function_execute",
            python_callable=first_function_execute,
            op_kwargs={"name":"Ayush Jain"},
-           op_kwargs={"age":"26"}
+           )
+
+     second_function_execute = PythonOperator(
+           task_id="second_function_execute",
+           python_callable=second_function_execute,
+           op_kwargs={"age":"24"},
            )
