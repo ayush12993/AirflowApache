@@ -3,6 +3,7 @@ try:
     from airflow import DAG
     from airflow.operators.python_operator import PythonOperator
     from datetime import datetime
+    import pandas as pd
     print("All Dag modules are okay ....")
 except Exception as e:
     print("Error e{}".format(e))
@@ -14,9 +15,12 @@ def first_function_execute(**context):
 
 def second_function_execute(**context):
     instance = context.get("ti").xcom_pull(key="mykey")
+    data=[{"name":"Ayush","title":"Devops Int."}, {"name":"Prashant":"Devops Fulltime"}]
+    df=pd.DataFrame(data=data)
+    print('@'*66)
+    print(df.head())
+    print('@'*66)
     print("I am in second_function_execute got value :{} from Function 1 ".format(instance))
-
-
 
 
 with DAG(
