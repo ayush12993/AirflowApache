@@ -14,7 +14,7 @@ def first_function_execute():
 
 with DAG(
         dag_id="first_dag",
-        schedule_interval="*/1 * * * *",
+        schedule_interval="*/59 * * * *",
         default_args={
            "owner": "airflow",
            "retries": 1,
