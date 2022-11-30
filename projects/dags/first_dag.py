@@ -9,10 +9,18 @@ except Exception as e:
 
 
 def first_function_execute(*args,**kwargs):
-    variable=kwargs.get("name","Didn,t not get the key")
-    print("Hello World ".format(variable))
-    print("Comment")
-    return "Hello World" + variable    
+    variable=kwargs.get("name"," Didn,t not get the key ")
+    print(" Welcome Your name is ".format(variable))
+    print(" Comment ")
+    return " Hello World " + variable    
+
+def second_function_execute(*args,**kwargs):
+    variable=kwargs.get( "age"," Didn,t not get the key ")
+    print(" Your age is ".format(variable))
+    print(" Comment ")
+    return " Hello World " + variable    
+
+
 
 with DAG(
         dag_id="first_dag",
@@ -29,5 +37,6 @@ with DAG(
     first_function_execute = PythonOperator(
            task_id="first_function_execute",
            python_callable=first_function_execute,
-           op_kwargs={"name":"Soumil Shah"}
+           op_kwargs={"name":"Ayush Jain"},
+           op_kwargs={"age":"26"}
            )
