@@ -20,7 +20,7 @@ def second_function_execute(**context):
 
 with DAG(
         dag_id="first_dag",
-        schedule_interval="*/* * * * *",
+        schedule_interval="*/1 * * * *",
         default_args={
            "owner": "airflow",
            "retries": 1,
