@@ -8,23 +8,19 @@ except Exception as e:
     print("Error e{}".format(e))
 
 
-def first_function_execute(*args,**kwargs):
-    variable=kwargs.get("name"," Didn,t not get the key ")
-    print(" Welcome Your name is ".format(variable))
-    print(" Comment ")
-    return " Hello World " + variable    
+def first_function_execute(**context):
+    variable=kwargs.get("first_function_execute ")
+    context['t1'].xcom_push(key='mykey',value="first_function_execute says Hello")
 
-def second_function_execute(*args,**kwargs):
-    variable=kwargs.get( "age"," Didn,t not get the key ")
-    print(" Your age is ".format(variable))
-    print(" Comment ")
-    return " Hello World " + variable    
+def second_function_execute(**context):
+    instance = context.get("ti").xcom_pull(key="mykey")
+    print("I am in second_function_execute got value :{} from Function 1 ".format(instance))
 
 
 
 with DAG(
         dag_id="first_dag",
-        schedule_interval="*/59 * * * *",
+        schedule_interval="*/* * * * *",
         default_args={
            "owner": "airflow",
            "retries": 1,
@@ -37,11 +33,16 @@ with DAG(
     first_function_execute = PythonOperator(
            task_id="first_function_execute",
            python_callable=first_function_execute,
+           provide_context=True,
            op_kwargs={"name":"Ayush Jain"},
            )
 
-     second_function_execute = PythonOperator(
+    second_function_execute = PythonOperator(
            task_id="second_function_execute",
            python_callable=second_function_execute,
-           op_kwargs={"age":"24"},
+           provide_context=True,
            )
+
+first_function_execute >> second_function_execute
+
+
