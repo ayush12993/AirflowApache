@@ -10,11 +10,12 @@ except Exception as e:
 
 def first_function_execute(**context):
     variable=kwargs.get("first_function_execute ")
-    context['t1'].xcom_push(key='mykey',value="first_function_execute says Hello")
+    context['ti'].xcom_push(key='mykey',value="first_function_execute says Hello")
 
 def second_function_execute(**context):
     instance = context.get("ti").xcom_pull(key="mykey")
     print("I am in second_function_execute got value :{} from Function 1 ".format(instance))
+
 
 
 
